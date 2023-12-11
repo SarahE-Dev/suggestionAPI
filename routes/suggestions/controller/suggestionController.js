@@ -39,7 +39,9 @@ async function createSuggestion(req, res){
 
 async function updateSuggestion(req, res){
     try {
-        let updatedSuggestion = await Suggestion.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true})
+        const {title, suggestion} = req.body;
+        const updatedInfo = {title, suggestion}
+        let updatedSuggestion = await Suggestion.findByIdAndUpdate({_id: req.params.id}, updatedInfo, {new: true})
          res.json({message: 'success', payload: updatedSuggestion})
     } catch (error) {
         res.status(500).json({message: 'error', error: error})
